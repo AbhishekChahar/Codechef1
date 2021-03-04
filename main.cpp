@@ -1,57 +1,37 @@
-// Sum OF subaarays
-/*
+//Sum of All Matrices Using Reverse Lookup in 2d
+// i+1 * j+1 * n-i * n-j  * arr[i][j] --> for every a[i][j]
 
-N = 3
-A[] = {1, 2, 3}
-Output: 20
-Explanation:
-All subarrays are [1], [2], [3],
-[1,2], [2,3], [1,2,3].
-Thus total sum is 20.
-
-*/
 
 #include<bits/stdc++.h>
 using namespace std;
 
-class sol{
-  public:
-  int subarraySum(int *arr, int n){
-  //   int sum=0;
-  //   for(int i=0; i<n; i++){
-  //     sum += arr[i]*(i+1) *(n-i)  ;
-  //   }
-  //   return sum;
-  // }
-
-  long long int sum=0;
-        long long int contribution = 0;
-        long long m = 10e8+7;
-        for(int i=0; i<n; i++){
-        //   sum += ((a[i]*(i+1))%(10e9+7) *(n-i)%(10e9+7) ) % (10e9+7)  ;
-          
-        contribution = ( ( ( arr[i] % (m) ) * ( (i+1) % (m) ) %  (m) ) * ( (n-i) % (m) ) ) % (m)  ;
-        sum =  (sum%m + contribution%m ) %m;               
-            
-        }
-        return sum;
-
-
-
-};
-
-
 int main(){
 
-  int n;
+  int n=3;
   cin>>n;
-  int arr[n];
+  int arr[n][n];
   for(int i=0; i<n; i++){
-    cin>>arr[i];
+    for(int j=0; j<n; j++){
+      cin>> arr[i][j];
+    }
   }
 
-  sol obj;
-  cout<<obj.subarraySum(arr,  n);
+  for(int i=0; i<n; i++){
+    for(int j=0; j<n; j++){
+      cout<<arr[i][j];
+    }
+    cout<<endl;
+  }
+
+  int sumMatrices = 0;
+  int totalSumMatrices = 0;
+  for(int i=0; i<n; i++){
+    for(int j=0; j<n; j++){
+      sumMatrices= arr[i][j] * (i+1) * (j+1) * (n-i)*(n-j);
+      totalSumMatrices += sumMatrices;
+    }
+  }
+  cout<<totalSumMatrices;
 
   return 0;
 }
